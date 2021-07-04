@@ -1,6 +1,6 @@
 # React, Redux, Typescript example repo.
-## Example repository for using React with Redux as global state manager, written with Typescript as UI solution for the GTA:V framework [RAGE Multiplayer](https://rage.mp).
-### This example repository does not claim to be best practise.
+### Example repository for using React with Redux as global state manager, written with Typescript as UI solution for the GTA:V framework [RAGE Multiplayer](https://rage.mp).
+This example repository does not claim to be best practice.
 
 
 ---
