@@ -84,10 +84,9 @@ const Routes = () => {
 }
 ```
 
-### The routing is controlled from the Server/Client side
+The routing is controlled from the Server/Client side
 
 ```
-this.browser = mp.browsers.new("package://cef/index.html#");
 const path = `location.hash = "#${url}"`;
 this.browser.execute(path);
 ```
