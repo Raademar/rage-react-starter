@@ -7,19 +7,19 @@ This example repository does not claim to be best practice.
 
 
 ## Sending data from the Client to the UI (CEF) 🖥️
-```
+```typescript
 this.browser = mp.browsers.new("package://cef/index.html#");
 this.browser.execute( `window.store.dispatch({type: "ADD", payload: ${data}})`)
 ```
 In order for the Redux store to be in the window scope we assign it like this in our root `index.tsx`
-```
+```typescript
 import store from "./store"
 window["store"] = store
 ```
 
 After this point we're on "normal" React roads again.
 
-```
+```typescript
 import { useAppSelector, useAppDispatch } from "../../store/hooks"
 const texts = useAppSelector(state => state.text.texts)
 const dispatch = useAppDispatch()
@@ -38,7 +38,7 @@ const handleSubmit = () => {
 
 
 ## Sending data from the UI to the Client and Server 💻
-```
+```typescript
 // React
 const handleSubmit = () => {
     mp.trigger("CallServerEvent", "Login", JSON.stringify(loginInfo))
@@ -67,7 +67,7 @@ mp.events.add({
 
 On the UI side we use React-Router with the `HashRouter`
 
-```
+```typescript
 import { HashRouter, Route, Switch } from "react-router-dom"
 import { LoginScreen, CharacterSelection } from "./pages"
 
@@ -86,7 +86,7 @@ const Routes = () => {
 
 The routing is controlled from the Server/Client side
 
-```
+```typescript
 const path = `location.hash = "#${url}"`;
 this.browser.execute(path);
 ```
@@ -98,7 +98,7 @@ This is not needed and can be replaced with any other styling solution. Craco ca
 
 ### Craco
 The react-scripts for start, build and test are replaced by craco to allow for postcss handling.
-```
+```JSON
 "start": "craco start",
 "build": "craco build",
 "test": "craco test",
@@ -108,7 +108,7 @@ The react-scripts for start, build and test are replaced by craco to allow for p
 This example uses Gulp to bundle the built Javascript files to inline Javascript located in the `build/index.html`
 
 Example on how I handle bundling and then moving the `build` folder to the right location.
-```
+```JSON
 // package.json in RAGE.mp server-files root
 "gulp": "cd app/react-cef && npx gulp",
 "move-cef": "cp -r app/react-cef/build client_packages/cef/",
