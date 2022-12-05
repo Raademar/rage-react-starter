@@ -8,11 +8,13 @@ This example repository does not claim to be best practice.
 
 ## Sending data from the Client to the UI (CEF) 🖥️
 ```typescript
-this.browser = mp.browsers.new("package://cef/index.html#");
-this.browser.execute( `window.store.dispatch({type: "ADD", payload: ${data}})`)
+// Rage client side
+const newBrowser = mp.browsers.new("package://cef/index.html#");
+newBrowser.execute( `window.store.dispatch({type: "ADD", payload: ${data}})`)
 ```
 In order for the Redux store to be in the window scope we assign it like this in our root `index.tsx`
 ```typescript
+// React
 import store from "./store"
 window["store"] = store
 ```
@@ -20,6 +22,7 @@ window["store"] = store
 After this point we're on "normal" React roads again.
 
 ```typescript
+// React
 import { useAppSelector, useAppDispatch } from "../../store/hooks"
 const texts = useAppSelector(state => state.text.texts)
 const dispatch = useAppDispatch()
@@ -47,7 +50,7 @@ const handleSubmit = () => {
 ...
 </form>
 
-// Client
+// Rage client side
 mp.events.add({
     "CallServerEvent": (event: string, data: string) => {
         mp.events.callRemote(event, data);
@@ -55,7 +58,7 @@ mp.events.add({
     ...
 )}
 
-// Server
+// Rage server side
 mp.events.add({
     "Login": (player: PlayerMp, data: string) => {
         ... Handle login
@@ -86,13 +89,19 @@ const Routes = () => {
 
 The routing is controlled from the Server/Client side
 
+
+
+
 ```typescript
+// Rage client side
+// Same browser variable as we declared at the top
+
 const path = `location.hash = "#${url}"`;
-this.browser.execute(path);
+newBrowser.execute(path);
 ```
 
 ## Building and bundling 🛠️
-This example uses Tailwind for styling (Login page) and included are the minimum required setup to use Tailwind with React.
+This example uses Tailwind for styling (Login page) and included is the minimum required setup to use Tailwind with React.
 
 This is not needed and can be replaced with any other styling solution. Craco can also be removed if Tailwind is not used.
 
